@@ -1,5 +1,7 @@
 from tree import Tree
 
+
+
 def min_depth_leaf(tree):
     """
     Computes the minimum depth of a leaf in the tree (length of shortest
@@ -12,15 +14,49 @@ def min_depth_leaf(tree):
     if not tree.children:
         return 0
     return min(min_depth_leaf(child) for child in tree.children) + 1
+    
+def min_depth_leaf_custom(tree, custom_depth=0):
+    """
+    Finds the custom minimum depth of a leaf in the tree. By default,
+    it finds the absolute minimum depth.
+    
+    Inputs:
+    tree (Tree): The tree to find the minimum depth in.
+    Custom_depth (int, optional): The custom depth to start from. Defaults to 0.
+    
+    Returns (int): The custom minimum depth of a leaf in the tree.
+    """
+    def lst_of_depth(tree, depth=0):
+        """
+        Recursively finds the depths of all leaves in the tree and returns
+        them in a sorted list.
+        
+        Parameters:
+        tree (Tree): The tree to find the depths in.
+        depth (int, optional): The current depth. Defaults to 0.
+        
+        Returns:
+        list: A sorted list of the depths of all leaves in the tree.
+        """
+        if not tree.children:
+            return [depth]
+        return sorted(new_depth for child in tree.children for new_depth \
+            in lst_of_depth(child, depth + 1))
+    tree_lst_of_depth = lst_of_depth(tree)
+    if len(tree_lst_of_depth) > custom_depth:
+        return tree_lst_of_depth[custom_depth]
+    else:
+        return tree_lst_of_depth[-1]
+
 
 import sys
 import pytest
 import util
+
 sys.path.append('../')
 
 import test_utils as utils
 import tree_test_utils as tree_utils
-
 
 def do_test_min_depth_leaf(trees_and_original_trees, tree_name, expected):
     trees, original_trees = trees_and_original_trees
