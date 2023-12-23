@@ -9,16 +9,9 @@ def min_depth_leaf(tree):
     
     Returns: (integer) the minimum depth of of a leaf in the tree.
     """
-
-    pass
-
-
-#############################################################
-###                                                       ###
-###                    Testing code.                      ###
-###    !!! DO NOT MODIFY ANY CODE BELOW THIS POINT !!!    ###
-###                                                       ###
-#############################################################
+    if not tree.children:
+        return 0
+    return min(min_depth_leaf(child) for child in tree.children) + 1
 
 import sys
 import pytest
