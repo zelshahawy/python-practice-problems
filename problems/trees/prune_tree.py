@@ -5,7 +5,7 @@ def prune_tree(tree, keys_to_discard):
     Returns a new tree with that is identical to the original tree, except
     that any node whose key is in keys_to_discard is removed, along with its
     descendants. If the key of the root is in keys_to_discard, then
-    <replace this with a description of how your code behaves in this case>
+    returns None
 
     Inputs:
         tree: a Tree instance.
