@@ -13,16 +13,15 @@ def prune_tree(tree, keys_to_discard):
     
     Returns: (Tree) the pruned tree.
     '''
-    
-    pass
+    if tree.key in keys_to_discard:
+        return None
+    new_tree = Tree(tree.key, tree.value)
+    for child in tree.children:
+        pruned_child = prune_tree(child, keys_to_discard)
+        if pruned_child is not None:
+            new_tree.add_child(pruned_child)
+    return new_tree
 
-
-#############################################################
-###                                                       ###
-###                    Testing code.                      ###
-###    !!! DO NOT MODIFY ANY CODE BELOW THIS POINT !!!    ###
-###                                                       ###
-#############################################################
 
 import sys
 import pytest
