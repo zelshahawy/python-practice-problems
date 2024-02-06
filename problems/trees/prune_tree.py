@@ -15,11 +15,13 @@ def prune_tree(tree, keys_to_discard):
     '''
     if tree.key in keys_to_discard:
         return None
+    if not tree.children:
+        return tree
     new_tree = Tree(tree.key, tree.value)
     for child in tree.children:
-        pruned_child = prune_tree(child, keys_to_discard)
-        if pruned_child is not None:
-            new_tree.add_child(pruned_child)
+        new_child = prune_tree(child, keys_to_discard=keys_to_discard)
+        if new_child is not None:
+            new_tree.add_child(new_child)
     return new_tree
 
 
